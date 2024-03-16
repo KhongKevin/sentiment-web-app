@@ -2,6 +2,8 @@
 
 This project will be a web application that houses a sentiment analysis machine learning model. Given on a word, it will scrape data off of social media sites such as reddit twitter, etc. and give a sentiment analysis on whether the given word has a positive or negative outlook with a corresponding percentage in the checked social media sites.
 
+The Machine Learning Model will be operated off of a Flask Backend with Python and will be implemented with a RESTful API. The specific model is TBD with a pretrained model as a base/placeholder and a custom model hopefully in the workings.
+
 Programs/libraries needed to install
 - Tortoise Git
 - Git 
