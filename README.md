@@ -4,7 +4,7 @@ This project will be a web application that houses a sentiment analysis machine 
 
 The Machine Learning Model will be operated off of a Flask Backend with Python and will be implemented with a RESTful API. The specific model is TBD with a pretrained model as a base/placeholder and a custom model hopefully in the workings.
 
-Programs/libraries needed to install
+## Programs/libraries needed to install for development
 - Tortoise Git
 - Git 
 - Visual Studio Code
