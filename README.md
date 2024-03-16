@@ -13,3 +13,9 @@ Programs/libraries needed to install
 
 > If anything buggy happens like react scripts not being recognized do:
 rm -rf node_modules && npm install
+
+
+## About this project
+
+Author: Kevin Khong
+This project was inspired by a fellow classmate and their capstone project which seems like it would have useful and interesting applications.
