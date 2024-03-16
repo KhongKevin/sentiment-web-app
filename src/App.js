@@ -1,23 +1,19 @@
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SecondaryPage from './pages/SecondaryPage';
+import InitialPage from './pages/InitialPage'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-       
-        <p>
-          This will eventually be a sentiment analysis webapp.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>        
+      <Routes>
+        <Route path="/" element={<InitialPage />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        <Route path="/SecondaryPage" element={<SecondaryPage />} />
+      </Routes>
+    </Router>
   );
 }
 
