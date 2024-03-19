@@ -1,10 +1,12 @@
-// HomePage.js
-import React from 'react';
+import React, { useState } from 'react'; 
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { ToggleButton } from '@mui/material';
 import { TextField } from '@mui/material';
-import SecondaryPage from './SecondaryPage';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import { MenuItem, Select } from '@mui/material'; // Import Select and MenuItem from @mui/material
+ 
 
 
 const SendIcon = () => (
@@ -20,25 +22,44 @@ const ViewListIcon = () => (
 
 
 const HomePage = () => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-        <h1>Home Page</h1>
-        <Link to="/SecondaryPage">
-          <Button variant="contained" color="primary">Secondary Page</Button>
-        </Link>
-        <div style={{ marginRight: '15%' }}> 
-          <ToggleButton value="list" aria-label="list">
-            <ViewListIcon />
-          </ToggleButton>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
-          <TextField id="outlined-basic" label="sentiment word" variant="outlined" style={{ padding: '8px 16px' }} />
-          <Button variant="contained" endIcon={<SendIcon />}>
-            Calculate
-          </Button>
-        </div>
-        
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Step 3: Function to toggle visibility
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+      <h1>Home Page</h1>
+      <Link to="/SecondaryPage">
+        <Button variant="contained" color="primary">Secondary Page</Button>
+      </Link>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
+        <ToggleButton value="list" aria-label="list" onClick={toggleVisibility}>
+          <ViewListIcon />
+        </ToggleButton>
+        {isVisible && (
+          <>
+            <Select label="Options1" value="setting1" onChange={() => {}} renderValue={() => "Setting 1"}>
+              <MenuItem value="Option 1">Option 1</MenuItem>
+              <MenuItem value="Option 2">Option 2</MenuItem>
+            </Select>
+            <Select label="Options2" value="setting2" onChange={() => {}} renderValue={() => "Setting 2"} >
+              <MenuItem value="Option 1">Option 1</MenuItem>
+              <MenuItem value="Option 2">Option 2</MenuItem>
+            </Select>
+          </>)}
       </div>
-    );
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
+        <TextField id="outlined-basic" label="sentiment word" variant="outlined" style={{ padding: '8px 16px' }} />
+        <Button variant="contained" endIcon={<SendIcon />}>
+          Calculate
+        </Button>
+      </div>
+    </div>
+    //TODO ADD MULTI SELECT
+  );
   };
 export default HomePage;
