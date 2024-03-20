@@ -41,7 +41,7 @@ def sentimentWord():
     if(get_sentiment(sentiment_word) > 0):
         sentiment = "postive"
     else:
-        sentiment = "negative"
+        sentiment = "neutral or negative"
     return jsonify({"sentiment": sentiment})
 
 

@@ -6,6 +6,8 @@ import { TextField } from '@mui/material';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { MenuItem, Select } from '@mui/material'; // Import Select and MenuItem from @mui/material
+import { LineChart } from '@mui/x-charts/LineChart';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 const SendIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837">
@@ -84,6 +86,35 @@ const HomePage = () => {
           <p>Output: {output}</p>
         </div>
       )}
+
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
+        <LineChart
+          xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+          series={[
+            {
+              data: [2, 5.5, 2, 8.5, 1.5, 5],
+            },
+          ]}
+          width={500}
+          height={300}
+        />
+
+        <PieChart
+          series={[
+            {
+              data: [
+                { id: 0, value: 10, label: 'series A' },
+                { id: 1, value: 15, label: 'series B' },
+                { id: 2, value: 20, label: 'series C' },
+              ],
+            },
+          ]}
+          width={400}
+          height={200}
+        />
+      </div>
+
+      
     </div>
   );
 };
