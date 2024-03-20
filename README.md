@@ -4,12 +4,19 @@ This project will be a web application that houses a sentiment analysis machine 
 
 The Machine Learning Model will be operated off of a Flask Backend with Python and will be implemented with a RESTful API. The specific model is TBD with a pretrained model as a base/placeholder and a custom model hopefully in the workings.
 
+## Setup Run
+
+Need to start the python backend server first, then connect to the react front end second
+python backend address is defined in package.json as https://localhost:5000/
+react front end is defined as http://localhost:3000/
+
 ## Programs/libraries needed to install for development
 - Tortoise Git
 - Git 
 - Visual Studio Code
 - javascript/react
 - material ui 
+
 
 ## Debugging
 

@@ -1,22 +1,64 @@
-import nltk
-nltk.download('all')
+# import nltk
+# nltk.download('all')
 
 # import libraries
+from flask import Flask , request, jsonify
+
 import pandas as pd
 
 import nltk
-
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-from nltk.corpus import stopwords
-
-from nltk.tokenize import word_tokenize
-
-from nltk.stem import WordNetLemmatizer
+analyzer = SentimentIntensityAnalyzer()
 
 
-# download nltk corpus (first time only)
-import nltk
+# create get_sentiment function
+
+def get_sentiment(text):
+
+    scores = analyzer.polarity_scores(text)
+
+    sentiment = 1 if scores['pos'] > 0 else 0
+
+    return sentiment
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return "Hello, World!"
+
+@app.route("/favicon.ico")
+def favicon():
+    # Return a 404 Not Found error for favicon requests
+    return "", 404
+
+@app.route("/sentimentWord", methods=["POST"])
+def sentimentWord():
+    data = request.json
+    sentiment_word = data.get("sentimentWord", "")
+    if(get_sentiment(sentiment_word) > 0):
+        sentiment = "postive"
+    else:
+        sentiment = "negative"
+    return jsonify({"sentiment": sentiment})
+
+
+if __name__ == "__main__":
+    app.run(debug=True, ssl_context='adhoc')
+
+# from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# from nltk.corpus import stopwords
+
+# from nltk.tokenize import word_tokenize
+
+# from nltk.stem import WordNetLemmatizer
+
+
+# # download nltk corpus (first time only)
+# import nltk
 
 #nltk.download('all')
 
@@ -70,29 +112,29 @@ import nltk
 
 # # initialize NLTK sentiment analyzer
 
-analyzer = SentimentIntensityAnalyzer()
+# analyzer = SentimentIntensityAnalyzer()
 
 
-# create get_sentiment function
+# # create get_sentiment function
 
-def get_sentiment(text):
+# def get_sentiment(text):
 
-    scores = analyzer.polarity_scores(text)
+#     scores = analyzer.polarity_scores(text)
 
-    sentiment = 1 if scores['pos'] > 0 else 0
+#     sentiment = 1 if scores['pos'] > 0 else 0
 
-    return sentiment
-
-
+#     return sentiment
 
 
-# apply get_sentiment function
-
-df['sentiment'] = df['reviewText'].apply(get_sentiment)
-
-print(df)
 
 
-print(get_sentiment("this works yes?"))
-print(get_sentiment("I love trump and this so much!"))
-print(get_sentiment("this sucks balls"))
+# # apply get_sentiment function
+
+# df['sentiment'] = df['reviewText'].apply(get_sentiment)
+
+# print(df)
+
+
+# print(get_sentiment("this works yes?"))
+# print(get_sentiment("I love trump and this so much!"))
+# print(get_sentiment("this sucks balls"))

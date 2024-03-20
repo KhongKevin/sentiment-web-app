@@ -6,8 +6,6 @@ import { TextField } from '@mui/material';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { MenuItem, Select } from '@mui/material'; // Import Select and MenuItem from @mui/material
- 
-
 
 const SendIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837">
@@ -15,19 +13,35 @@ const SendIcon = () => (
   </svg>
 );
 
-
 const ViewListIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="18" height="18" viewBox="0 0 52 52" data-name="Layer 1" id="Layer_1"><path d="M50,15.52H2a2,2,0,0,1-2-2V2A2,2,0,0,1,2,0H50a2,2,0,0,1,2,2V13.52A2,2,0,0,1,50,15.52Zm-46-4H48V4H4Z"/><path d="M50,33.76H2a2,2,0,0,1-2-2V20.24a2,2,0,0,1,2-2H50a2,2,0,0,1,2,2V31.76A2,2,0,0,1,50,33.76Zm-46-4H48V22.24H4Z"/><path d="M50,52H2a2,2,0,0,1-2-2V38.48a2,2,0,0,1,2-2H50a2,2,0,0,1,2,2V50A2,2,0,0,1,50,52ZM4,48H48V40.48H4Z"/></svg>
 )
 
-
 const HomePage = () => {
-
   const [isVisible, setIsVisible] = useState(false);
+  const [sentimentWord, setSentimentWord] = useState('');
+  const [output, setOutput] = useState('');
 
-  // Step 3: Function to toggle visibility
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
+  };
+
+  const handleCalculate = () => {
+    fetch('/sentimentWord', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sentimentWord }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the server
+      setOutput(data.sentiment);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
   return (
@@ -53,13 +67,25 @@ const HomePage = () => {
           </>)}
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px' }}>
-        <TextField id="outlined-basic" label="sentiment word" variant="outlined" style={{ padding: '8px 16px' }} />
-        <Button variant="contained" endIcon={<SendIcon />}>
+        <TextField 
+          id="outlined-basic" 
+          label="sentiment word" 
+          variant="outlined" 
+          style={{ padding: '8px 16px' }} 
+          value={sentimentWord}
+          onChange={(e) => setSentimentWord(e.target.value)}
+        />
+        <Button variant="contained" endIcon={<SendIcon />} onClick={handleCalculate}>
           Calculate
         </Button>
       </div>
+      {output && (
+        <div style={{ marginTop: '20px' }}>
+          <p>Output: {output}</p>
+        </div>
+      )}
     </div>
-    //TODO ADD MULTI SELECT
   );
-  };
+};
+
 export default HomePage;
